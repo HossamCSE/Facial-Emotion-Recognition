@@ -2,8 +2,8 @@
 
 > **An End-to-End Deep Learning Web Application for Real-Time Facial Emotion Detection.**
 ##  Project Demo
-![Main Interface](assets/WhatsApp Image 2025-12-07 at 22.01.04_8d682b80.jpg)
-
+![Main Interface](assets/main_interface.jpg)
+![System Analytics](assets/analysis.png)
 ---
 ##  Overview
 This project bridges the gap between **Deep Learning** and **Web Development**. It implements a robust Computer Vision pipeline capable of detecting and classifying human facial expressions into 6 distinct categories:
@@ -51,7 +51,7 @@ The model uses **Transfer Learning** to leverage features learned from ImageNet,
 
 The model achieved a final accuracy of **71.41%** on the unseen test set using TTA.
 
-![Confusion Matrix](assets/Screenshot 2025-12-06 170854.png)
+![Confusion Matrix](assets/Confusion_Matrix.png)
 
 ### Per-Class Accuracy (with TTA):
 | Class | Accuracy | Recall |
