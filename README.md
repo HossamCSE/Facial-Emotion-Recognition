@@ -3,7 +3,7 @@
 > **An End-to-End Deep Learning Web Application for Real-Time Facial Emotion Detection.**
 ##  Project Demo
 ![Main Interface](assets/main_interface.jpg)
-![System Analytics](assets/analysis.png)
+![System Analytics](assets/System_Analytics.png)
 ---
 ##  Overview
 This project bridges the gap between **Deep Learning** and **Web Development**. It implements a robust Computer Vision pipeline capable of detecting and classifying human facial expressions into 6 distinct categories:
