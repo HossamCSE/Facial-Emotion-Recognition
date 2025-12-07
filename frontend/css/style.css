@@ -1,0 +1,340 @@
+/* =============================================================================
+   style.css  
+   This file contains all visual styles for the EmotionSense UI.
+
+   ✔ Defines global theme variables (colors, glass effect, etc.)
+   ✔ Handles layout structure (grid system, containers, responsiveness)
+   ✔ Controls design of:
+         - Header
+         - Live camera panel
+         - Upload section
+         - Results sidebar
+         - Statistics dashboard
+         - Loading screen
+   ✔ Includes animations (fade, slide, spinner)
+============================================================================= */
+
+
+/* ==================================================
+   Global Variables & Reset
+   ================================================== */
+:root {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a29bfe;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text-light: #ffffff;
+    --text-dim: #dfe6e9;
+    --danger: #ff7675;
+    --success: #00b894;
+}
+
+/* Reset default browser styles and set font */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+body {
+    /* Background image for the body */
+    background: url('images/main-bg.png') no-repeat center center fixed; 
+    background-size: cover;
+    color: var(--text-light);
+    min-height: 100vh;
+}
+
+/* ==================================================
+   Layout Structure
+   ================================================== */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ==================================================
+   Glassmorphism Base Style
+   ================================================== */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* ==================================================
+   Header Section
+   ================================================== */
+.header-section {
+    background: url('images/header-bg.png') center; 
+    background-size: cover;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo-area h1 { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    margin-left: 10px; 
+    display: inline-block; 
+}
+.logo-area span { color: var(--secondary-color); }
+.logo-area i { font-size: 1.8rem; color: var(--secondary-color); }
+
+/* Navigation buttons */
+.nav-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+.nav-btn.active, .nav-btn:hover { 
+    color: #fff; 
+    text-shadow: 0 0 10px var(--primary-color); 
+}
+
+/* ==================================================
+   Main Content Grid
+   ================================================== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    min-height: 500px;
+}
+
+@media (max-width: 768px) {
+    .content-grid { grid-template-columns: 1fr; }
+}
+
+/* ==================================================
+   Camera & Upload Area
+   ================================================== */
+.analysis-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-wrapper, .preview-area {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+video, #resultImageLive, #uploadedImageDisplay { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+}
+
+/* Hide elements completely */
+.hidden { display: none !important; }
+
+/* ==================================================
+   Tab Content Logic
+   ================================================== */
+.tab-content {
+    display: none; /* Hidden by default */
+    width: 100%;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Fade-in animation for tabs */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================================================
+   Buttons
+   ================================================== */
+.controls { 
+    display: flex; 
+    gap: 15px; 
+    justify-content: center; 
+    width: 100%; 
+}
+
+button { 
+    padding: 10px 24px; 
+    border-radius: 30px; 
+    border: none; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: transform 0.2s; 
+}
+button:active { transform: scale(0.95); }
+
+.primary-btn { background: var(--primary-color); color: white; }
+.action-btn { background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color: white; }
+.secondary-btn { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ==================================================
+   Upload Zone
+   ================================================== */
+.upload-zone {
+    border: 2px dashed var(--secondary-color);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: url('images/pattern.png') repeat, rgba(0,0,0,0.2); 
+}
+.upload-zone:hover { background-color: rgba(255,255,255,0.05); }
+
+/* ==================================================
+   Results Sidebar
+   ================================================== */
+.results-sidebar h3 { 
+    margin-bottom: 15px; 
+    border-bottom: 1px solid var(--glass-border); 
+    padding-bottom: 10px; 
+}
+
+.result-item {
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success);
+    animation: slideIn 0.3s ease-out;
+}
+
+.result-item h4 { color: var(--success); margin-bottom: 4px; }
+.progress-bar { height: 4px; background: #333; border-radius: 2px; margin-top: 5px; }
+.progress-fill { height: 100%; background: var(--success); border-radius: 2px; }
+
+/* Slide-in animation for results */
+@keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ==================================================
+   Stats Section
+   ================================================== */
+.stats-dashboard {
+    background: url('images/stats-bg.png') center;
+    background-size: cover;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Overlay to darken background */
+.stats-dashboard::before {
+    content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
+    background: rgba(10, 10, 30, 0.75); 
+    border-radius: 16px; z-index: 0;
+}
+
+.stats-header, .stats-grid { position: relative; z-index: 1; }
+
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stats-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(15deg);
+}
+
+.delete-btn:hover {
+    background: #ff7675; 
+    color: white;
+    transform: scale(1.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card { 
+    background: rgba(255,255,255,0.05); 
+    padding: 20px; 
+    border-radius: 12px; 
+    text-align: center; 
+}
+.stat-card h4 { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 10px; }
+.stat-card span { font-size: 2rem; font-weight: bold; color: var(--secondary-color); }
+
+/* Chart Container */
+.chart-container {
+    position: relative;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==================================================
+   Loading Screen
+   ================================================== */
+#loading-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8) url('images/loading-bg.png') center/cover;
+    z-index: 999;
+    display: flex; justify-content: center; align-items: center;
+}
+.loader-content { 
+    text-align: center; 
+    background: rgba(0,0,0,0.7); 
+    padding: 40px; 
+    border-radius: 20px; 
+    backdrop-filter: blur(5px); 
+}
+.spinner { 
+    width: 50px; 
+    height: 50px; 
+    border: 5px solid #f3f3f3; 
+    border-top: 5px solid var(--primary-color); 
+    border-radius: 50%; 
+    animation: spin 1s linear infinite; 
+    margin: 0 auto 20px; 
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

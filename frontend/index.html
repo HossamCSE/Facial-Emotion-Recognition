@@ -1,0 +1,174 @@
+<!-- ============================================================================
+  index.html  
+  This is the main UI for the EmotionSense Facial Emotion Recognition System.
+
+  ✔ Manages the layout of the entire interface  
+  ✔ Contains tabs for:
+        - Live Camera Emotion Detection  
+        - Upload Image Emotion Detection  
+        - Statistics Dashboard  
+  ✔ Contains containers used by JavaScript to display results dynamically  
+  ✔ Connected to main.js for full functionality  
+
+  NOTE: No logic is handled in this file — ONLY the visual structure and IDs
+        required by the JavaScript files.
+============================================================================ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Set basic HTML meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Website Title -->
+    <title>Emotion AI | Facial Recognition System</title>
+    
+    <!-- Font Awesome icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Chart.js library for statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Loading overlay while analyzing -->
+    <div id="loading-screen" class="hidden">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p>Analyzing Expressions...</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+
+        <!-- =============================== HEADER =============================== -->
+        <header class="glass-panel header-section">
+            
+            <!-- Logo / Title -->
+            <div class="logo-area">
+                <i class="fa-solid fa-face-smile-beam"></i>
+                <h1>Emotion<span>Sense</span></h1>
+            </div>
+
+            <!-- Navigation buttons -->
+            <nav>
+                <button class="nav-btn active" onclick="switchTab('live')">Live Camera</button>
+                <button class="nav-btn" onclick="switchTab('upload')">Upload Image</button>
+                <button class="nav-btn" onclick="scrollToStats()">Statistics</button>
+            </nav>
+
+        </header>
+
+        <!-- ========================== MAIN CONTENT GRID ========================== -->
+        <main class="content-grid">
+            
+            <!-- LEFT SIDE - LIVE CAMERA & UPLOAD -->
+            <section class="glass-panel analysis-card">
+
+                <!-- ---------- LIVE CAMERA TAB ---------- -->
+                <div id="live-tab" class="tab-content active">
+                    
+                    <div class="video-wrapper">
+                        <video id="videoElement" autoplay playsinline></video>
+                        <canvas id="canvasElement" class="hidden"></canvas>
+                        <img id="resultImageLive" class="result-display hidden" alt="Analysis Result">
+                    </div>
+
+                    <div class="controls">
+                        <button id="startBtn" class="primary-btn">
+                            <i class="fas fa-video"></i> Start Camera
+                        </button>
+
+                        <button id="captureBtn" class="action-btn" disabled>
+                            <i class="fas fa-camera"></i> Analyze Frame
+                        </button>
+
+                        <button id="resetLiveBtn" class="secondary-btn hidden">
+                            Reset
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- ---------- UPLOAD IMAGE TAB ---------- -->
+                <div id="upload-tab" class="tab-content">
+
+                    <div class="upload-zone" id="dropZone">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <p>
+                            Drag & Drop your image here or <span>Browse</span>
+                        </p>
+                        <input type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+
+                    <div class="preview-area hidden" id="uploadPreview">
+                        <img id="uploadedImageDisplay" src="" alt="Preview">
+
+                        <div class="controls">
+                            <button id="analyzeUploadBtn" class="action-btn">
+                                Analyze Image
+                            </button>
+
+                            <button id="newUploadBtn" class="secondary-btn">
+                                New Image
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= RIGHT SIDE – RESULTS ================= -->
+            <aside class="glass-panel results-sidebar">
+                <h3>Current Analysis</h3>
+
+                <div id="results-container" class="empty-state">
+                    <i class="fas fa-robot"></i>
+                    <p>Waiting for input...</p>
+                </div>
+            </aside>
+
+        </main>
+
+        <!-- ======================= STATISTICS SECTION ======================= -->
+        <section id="stats-section" class="glass-panel stats-dashboard">
+            <div class="stats-header">
+                <h2>System Analytics</h2>
+                <div class="stats-controls">
+                    <button onclick="refreshStats()" class="icon-btn" title="Refresh Data">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                    <button onclick="clearData()" class="icon-btn delete-btn" title="Clear History">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Scans</h4>
+                    <span id="total-scans">0</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Avg Confidence</h4>
+                    <span id="avg-conf">0%</span>
+                </div>
+                <div class="stat-card chart-container">
+                    <canvas id="emotionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Main JavaScript logic -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

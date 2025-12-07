@@ -1,0 +1,28 @@
+# Ignore Virtual Environment
+venv/
+env/
+.env
+
+# Ignore Python Cache
+__pycache__/
+*.py[cod]
+
+# Ignore Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Ignore Dataset (Too large for GitHub)
+dataset/
+images/
+train/
+test/
+val/
+
+# Ignore heavy model files (To avoid errors)
+*.h5
+*.keras
+saved_model/
+model_results.txt
+
+# Ignore IDE settings
+.vscode/
+.idea/
